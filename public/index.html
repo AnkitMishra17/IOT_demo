@@ -16,10 +16,10 @@
 </head>
 <style>
 body{
-    background: linear-gradient(-90deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-      background-size: 400% 400%;
-      animation: gradientBG 40s ease infinite;
-      font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(-90deg, #ee7752, #e73c7e, #ffecd2, #fcb69f);
+    background-size: 400% 400%;
+    animation: gradientBG 40s ease infinite;
+    font-family: 'Quicksand', sans-serif;
  
 }     
     @keyframes gradientBG {
@@ -35,33 +35,25 @@ body{
 }
 
 .section-a{
-                background: url('./runner.gif');
-                background-size: cover;
-                height: 300px;
-                box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
-                border-radius: 15px;
-}
-.section-b{            
-                background: url('./fitness.png');
-                background-size: cover;
-                height: 300px;
+                background: url('./heart.gif');
+                background-size: contain;
+                background-position: center;
+                height: 500px;
                 box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
                 border-radius: 15px;
 }
 .bounceIn:hover{
     transform: scale(0.95);
-    transition: 0.3s;
+    transition: 0.25s;
 }
 </style>
 <body>
         <div class="row mx-2 d-flex justify-content-around">
-                <div class="my-5 bounceIn col-md-4 section-a d-flex justify-content-center">
-                        <p class="text-center value1 display-4 text-primary"></p>
-                </div>
-                <div class="my-5 bounceIn col-md-4 section-b d-flex justify-content-center">
-                        <p class="text-center value2 display-4 text-primary"></p>           
-                </div>              
+                <div class="my-5 bounceIn col-md-5 section-a d-flex justify-content-center">
+                        <p class="text-center value1 display-3 text-primary"></p>
+                </div>     
         </div>
+        <!-- <button class="btn btn-primary" onclick="myfunc()">change value</button> -->
 </body>
 <script>
   // Your web app's Firebase configuration
@@ -84,12 +76,16 @@ $(document).ready(()=>{
     var ref = database.ref();
     ref.on("value",(snap)=>{
         let value1 = snap.val().valueA;
-        let value2 = snap.val().valueB;
-        $('.value1').text(value1);
-        $('.value2').text(value2);
+        $('.value1').text(value1 + " bp/s");
     }, function(error) {
     console.error(error);
 });
+// myfunc = () =>{
+//   firebase.database().ref().set({
+//     valueA: "value1",
+//     valueB: "value2"
+//     });
+// }
 });
 </script>
 </html>

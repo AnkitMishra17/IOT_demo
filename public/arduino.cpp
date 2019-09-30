@@ -21,6 +21,6 @@ void loop() {
   Serial.print(value);
   Serial.println("bps");
   beat1 = String(value);
-  Firebase.setString("ValueA",beat1);
+  Firebase.setString("valueA",beat1);
   delay(1000);
 }
