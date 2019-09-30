@@ -20,6 +20,7 @@ body{
     background-size: 400% 400%;
     animation: gradientBG 40s ease infinite;
     font-family: 'Quicksand', sans-serif;
+    max-height: 100vh;
  
 }     
     @keyframes gradientBG {
@@ -36,8 +37,9 @@ body{
 
 .section-a{
                 background: url('./heart.gif');
-                background-size: contain;
+                background-size: cover;
                 background-position: center;
+                background-repeat: no-repeat;
                 height: 500px;
                 box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
                 border-radius: 15px;
@@ -46,6 +48,19 @@ body{
     transform: scale(0.95);
     transition: 0.25s;
 }
+@media(max-width:768px){
+.section-a{
+                top: 25vh;
+                background: url('./heart.gif');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 300px;
+                box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
+                border-radius: 15px;
+}
+
+  }
 </style>
 <body>
         <div class="row mx-2 d-flex justify-content-around">
