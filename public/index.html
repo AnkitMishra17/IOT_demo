@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IOT-Minor</title>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">    
+</head>
+<style>
+body{
+    background: linear-gradient(-90deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientBG 40s ease infinite;
+      font-family: 'Quicksand', sans-serif;
+ 
+}     
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 100% 20%;
+      }
+}
+
+.section-a{
+                background: url('./runner.gif');
+                background-size: cover;
+                height: 300px;
+                box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
+                border-radius: 15px;
+}
+.section-b{            
+                background: url('./fitness.png');
+                background-size: cover;
+                height: 300px;
+                box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
+                border-radius: 15px;
+}
+.bounceIn:hover{
+    transform: scale(0.95);
+    transition: 0.3s;
+}
+</style>
+<body>
+        <div class="row mx-2 d-flex justify-content-around">
+                <div class="my-5 bounceIn col-md-4 section-a d-flex justify-content-center">
+                        <p class="text-center value1 display-4 text-primary"></p>
+                </div>
+                <div class="my-5 bounceIn col-md-4 section-b d-flex justify-content-center">
+                        <p class="text-center value2 display-4 text-primary"></p>           
+                </div>              
+        </div>
+</body>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAUipnJNmFmmd25pvhm5qio7HzjF4UE5Kk",
+    authDomain: "iot-minor-ff1fd.firebaseapp.com",
+    databaseURL: "https://iot-minor-ff1fd.firebaseio.com",
+    projectId: "iot-minor-ff1fd",
+    storageBucket: "iot-minor-ff1fd.appspot.com",
+    messagingSenderId: "704848710767",
+    appId: "1:704848710767:web:58e085f9fec044a1d4519a",
+    measurementId: "G-22LC08L7MK"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+$(document).ready(()=>{
+    var database = firebase.database();
+    var ref = database.ref();
+    ref.on("value",(snap)=>{
+        let value1 = snap.val().valueA;
+        let value2 = snap.val().valueB;
+        $('.value1').text(value1);
+        $('.value2').text(value2);
+    }, function(error) {
+    console.error(error);
+});
+});
+</script>
+</html>
