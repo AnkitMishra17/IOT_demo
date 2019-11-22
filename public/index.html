@@ -8,6 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -64,9 +65,14 @@ body{
 </style>
 <body>
         <div class="row mx-2 d-flex justify-content-around">
-                <div class="my-5 bounceIn col-md-5 section-a d-flex justify-content-center">
+                <div class="my-5 bounceIn col-md-4 section-a d-flex justify-content-center">
                         <p class="text-center value1 display-3 text-primary"></p>
-                </div>     
+                </div>  
+        </div>
+        <div class="row mx-2 d-flex justify-content-around">
+            <div class="col-md-8 my-5">
+                <div id="chart"></div>
+            </div>    
         </div>
         <!-- <button class="btn btn-primary" onclick="myfunc()">change value</button> -->
 </body>
@@ -86,21 +92,38 @@ body{
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
-$(document).ready(()=>{
     var database = firebase.database();
     var ref = database.ref();
+
+    Plotly.plot('chart',[{
+        y:[5],
+    fill: 'tozeroy',
+    type: 'scatter',
+    mode: 'lines',
+    line: {color: '#ff7675'}
+}],{
+    title: "Heart Rate Monitor"
+    });
+setInterval(function() {
     ref.on("value",(snap)=>{
         let value1 = snap.val().valueA;
         $('.value1').text(value1 + " bp/s");
+      Plotly.extendTraces('chart', { y: [[value1]] }, [0])
+      var cnt = 0;
+      cnt++;
+   
+   if(cnt > 500) {
+     Plotly.relayout('chart',{
+        xaxis: {
+                  range: [cnt-500,cnt]
+               }
+      });
+   }
+
     }, function(error) {
     console.error(error);
 });
-// myfunc = () =>{
-//   firebase.database().ref().set({
-//     valueA: "value1",
-//     valueB: "value2"
-//     });
-// }
-});
+}, 1000);
+
 </script>
 </html>
